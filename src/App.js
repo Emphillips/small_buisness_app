@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import NavBar from './Components/Navigation';
+// import LogIn from './Component/Login/Login';
+// import Dashboard from './Component/Dashboard/Dashboard';
+// import LoginButton from './Component/Login/Button';
+import UserForm from './Components/Login/Form';
+import { Button } from '@material-ui/core';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			logStatus: false
+		};
+		this.loggedIn = this.loggedIn.bind(this);
+	}
+
+	loggedIn = () => {
+		this.setState({
+			logStatus: true
+		});
+		console.log(`isloggedIn running: ${this.state.logStatus}`);
+	};
+
+	render() {
+		// eslint-disable-next-line
+		if (this.state.logStatus == true) {
+			return (
+				<div>
+					<NavBar loggedIn={this.loggedIn} />
+
+					{/* <Dashboard /> */}
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<NavBar loggedIn={this.loggedIn} />
+          <div className="mainForm">
+					<UserForm />
+					<UserForm />
+          <Button size="large" variant="contained" color="primary" onClick = {this.loggedIn}> 
+      Login
+    </Button>
+      </div>
+		</div>
+			);
+		}
+		
+	}
 }
-
-export default App;
